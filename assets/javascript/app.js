@@ -2,7 +2,6 @@ var correctGuess = 0;
 var inCorrectGuess = 0;
 var unAnswered = 0;
 var timeLeft = 30;
-var decreaseTime;
 
 $(document).ready(function() {
 var questions = [
@@ -24,8 +23,17 @@ var questions = [
 ]
 
 $('#startButton').on('click', function(){
-	$(this).hide();
-	newGame();
+    $(this).hide();
+    $(".hidden").removeClass("hidden");
+    newGame();
+    var decreaseTime = setInterval(timer,1000);
+    function timer() {
+        $("#timeRemaining").text(timeLeft);
+        timeLeft --;
+        if (timeLeft === -1) {
+            clearInterval(decreaseTime);
+        }
+    }
 });
 
 $('#startOverButton').on('click', function(){
@@ -40,22 +48,7 @@ function newGame() {
     correctGuess = 0;
     inCorrectGuess = 0;
     unAnswered = 0;
-}
-
-var decreaseTime = setInterval(function() {
-    $("#timeRemaining").text(timeLeft);
-    timeLeft --;
-
-    if (timeLeft === -1) {
-        clearInterval(decreaseTime);
-    }
-},1000);
+};
 });
-
-
-// if(timeLeft === 0) {
-//     clearInterval(decreaseTime);
-// // }
-// method = function in an object
 
 // fade Out method // fade In method hide method
